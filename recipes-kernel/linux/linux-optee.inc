@@ -20,6 +20,10 @@ def get_optee_configs(d):
 COMPATIBLE_MACHINE = "(qemu|fvp|hikey)-optee(32|64)"
 KERNEL_IMAGETYPE ?= "Image"
 
+# Workaround to include modules.builtin.modinfo
+
+FILES_${KERNEL_PACKAGE_NAME}-base += " ${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
+
 KERNEL_CONFIG_COMMAND () {
     cd ${S}
     ./scripts/kconfig/merge_config.sh \
