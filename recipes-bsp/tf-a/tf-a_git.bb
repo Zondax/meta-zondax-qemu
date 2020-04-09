@@ -64,10 +64,7 @@ do_install () {
 
 do_deploy() {
     install -d ${DEPLOYDIR}
-    install -m 644 ${S}/build/qemu/debug/bl1.bin ${DEPLOYDIR}
-    install -m 644 ${S}/build/qemu/debug/bl2.bin ${DEPLOYDIR}
-    install -m 644 ${S}/build/qemu/debug/bl31.bin ${DEPLOYDIR}
-    install -m 644 ${S}/build/qemu/debug/fip.bin ${DEPLOYDIR}
+    install -m 644 ${S}/build/qemu/debug/*.bin ${DEPLOYDIR}
 }
 
 addtask deploy before do_package after do_install
