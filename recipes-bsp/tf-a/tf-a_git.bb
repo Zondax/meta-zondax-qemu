@@ -7,8 +7,9 @@ SRCREV = "e7a5403358bca60a82e6c6d54608f1e2adb83a09"
 SRC_URI = "git://git.trustedfirmware.org/TF-A/trusted-firmware-a.git;branch=master"
 
 DEPENDS_qemu-optee32 = "u-boot-optee optee-os"
+DEPENDS_qemu-optee64 = "u-boot-optee optee-os"
 
-COMPATIBLE_MACHINE = "qemu-optee32"
+COMPATIBLE_MACHINE = "qemu-optee(32|64)"
 
 ARMTF_ARGS_qemu-optee32 = " \
         BL32=${STAGING_DIR_HOST}/lib/firmware/tee-header_v2.bin \
@@ -21,6 +22,19 @@ ARMTF_ARGS_qemu-optee32 = " \
 	ARM_TSP_RAM_LOCATION=tdram \
 	BL32_RAM_LOCATION=tdram \
 	AARCH32_SP=optee \
+        DEBUG=1 \
+        LOG_LEVEL=50 \
+"
+
+ARMTF_ARGS_qemu-optee64 = " \
+        BL32=${STAGING_DIR_HOST}/lib/firmware/tee-header_v2.bin \
+	BL32_EXTRA1=${STAGING_DIR_HOST}/lib/firmware/tee-pager_v2.bin \
+	BL32_EXTRA2=${STAGING_DIR_HOST}/lib/firmware/tee-pageable_v2.bin \
+	BL33=${STAGING_DIR_HOST}/lib/firmware/u-boot.bin \
+	PLAT=qemu \
+	ARM_TSP_RAM_LOCATION=tdram \
+	BL32_RAM_LOCATION=tdram \
+	SPD=opteed \
         DEBUG=1 \
         LOG_LEVEL=50 \
 "
@@ -52,6 +66,7 @@ do_deploy() {
     install -d ${DEPLOYDIR}
     install -m 644 ${S}/build/qemu/debug/bl1.bin ${DEPLOYDIR}
     install -m 644 ${S}/build/qemu/debug/bl2.bin ${DEPLOYDIR}
+    install -m 644 ${S}/build/qemu/debug/bl31.bin ${DEPLOYDIR}
     install -m 644 ${S}/build/qemu/debug/fip.bin ${DEPLOYDIR}
 }
 

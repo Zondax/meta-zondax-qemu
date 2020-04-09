@@ -17,7 +17,7 @@ def get_optee_configs(d):
         bb.fatal("Unsupported machine")
 
 # Lets see what happens.
-COMPATIBLE_MACHINE = "(qemu|fvp|hikey)-optee(32|64)"
+COMPATIBLE_MACHINE = "qemu-optee(32|64)"
 KERNEL_IMAGETYPE ?= "Image"
 
 # Workaround to include modules.builtin.modinfo
