@@ -2,7 +2,7 @@ SUMMARY = "OP-TEE Trusted OS"
 DESCRIPTION = "OPTEE OS"
 
 LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=8bef8e6712b1be5aa76af1ebde9d6378"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
 
 PV="3.8.0+git${SRCPV}"
 
@@ -35,7 +35,7 @@ python () {
          bb.fatal("optee-os doesn't recognize this MACHINE")
 }
 
-SRCREV = "6e4f8f17cb8f98d75ea4b565bb1a0603646da993"
+SRCREV = "ee4d15901475dda07111ea1cc545d8b23ca6da1b"
 SRC_URI = "git://github.com/OP-TEE/optee_os.git"
 
 S = "${WORKDIR}/git"

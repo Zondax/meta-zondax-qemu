@@ -13,7 +13,7 @@ PV = "3.8.0+git${SRCPV}"
 SRC_URI = "git://github.com/OP-TEE/optee_test.git"
 S = "${WORKDIR}/git"
 
-SRCREV = "9f483bb2076179dde3f1b328f2cb88427774093d"
+SRCREV = "f29710856348b5aa018fe35e53941e46c19b86f5"
 
 OPTEE_CLIENT_EXPORT = "${STAGING_DIR_HOST}${prefix}"
 TEEC_EXPORT         = "${STAGING_DIR_HOST}${prefix}"

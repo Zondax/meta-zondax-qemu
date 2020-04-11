@@ -13,7 +13,7 @@ SRC_URI = "git://github.com/OP-TEE/optee_client.git \
 
 S = "${WORKDIR}/git"
 
-SRCREV = "aea20819b1ec55fc4c72b0d20e21109169726d7d"
+SRCREV = "29ddb4838d821f2e75f28c3e730a50f94ca7f48c"
 
 do_install() {
     oe_runmake install
