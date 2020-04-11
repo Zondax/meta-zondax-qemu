@@ -8,7 +8,8 @@ PV = "3.8.0+git${SRCPV}"
 
 inherit pythonnative systemd
 
-SRC_URI = "git://github.com/OP-TEE/optee_client.git"
+SRC_URI = "git://github.com/OP-TEE/optee_client.git \
+           file://optee"
 
 S = "${WORKDIR}/git"
 
@@ -24,4 +25,9 @@ do_install() {
     ln -sf libteec.so.1.0 ${D}${libdir}/libteec.so.1
 
     cp -a ${S}/out/export/usr/include ${D}${includedir}
+    if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
+	install -D -p -m0755 ${WORKDIR}/optee ${D}/etc/init.d/optee
+	install -d ${D}/etc/rcS.d
+	ln -sf ../init.d/optee ${D}/etc/rcS.d/S30optee
+    fi
 }
