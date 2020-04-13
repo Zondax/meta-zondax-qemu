@@ -1,0 +1,22 @@
+From 3de8c339ad211e4afc34b36f52088a471d88bc50 Mon Sep 17 00:00:00 2001
+From: Igor Opaniuk <igor.opaniuk@gmail.com>
+Date: Mon, 13 Apr 2020 20:55:50 +0300
+Subject: [PATCH] qemu_arm64: enable semihosting
+
+Signed-off-by: Igor Opaniuk <igor.opaniuk@gmail.com>
+---
+ configs/qemu_arm64_defconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/configs/qemu_arm64_defconfig b/configs/qemu_arm64_defconfig
+index 084b4c1ca6..db805d6a5b 100644
+--- a/configs/qemu_arm64_defconfig
++++ b/configs/qemu_arm64_defconfig
+@@ -46,3 +46,7 @@ CONFIG_USB=y
+ CONFIG_DM_USB=y
+ CONFIG_USB_EHCI_HCD=y
+ CONFIG_USB_EHCI_PCI=y
++CONFIG_SYS_TEXT_BASE=0x60000000
++CONFIG_BOOTCOMMAND="fdt addr ${fdt_addr} && fdt resize 1000 && smhload Image ${kernel_addr_r} && smhload rootfs.cpio.gz ${ramdisk_addr_r} ramdisk_addr_end &&  setenv bootargs console=ttyAMA0,38400 keep_bootcon root=/dev/vda2 earlyprintk=serial,ttyAMA0,115200 && fdt chosen ${ramdisk_addr_r} ${ramdisk_addr_end} && booti ${kernel_addr_r} - ${fdt_addr}"
++CONFIG_SEMIHOSTING=y
++CONFIG_TFABOOT=y
