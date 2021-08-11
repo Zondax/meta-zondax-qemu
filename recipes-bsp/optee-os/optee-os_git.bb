@@ -35,8 +35,11 @@ python () {
          bb.fatal("optee-os doesn't recognize this MACHINE")
 }
 
+SRC_URI = "git://github.com/OP-TEE/optee_os.git \
+           file://0001-allow-setting-sysroot-for-libgcc-lookup.patch \
+"
+
 SRCREV = "d21befa5e53eae9db469eba1685f5aa5c6f92c2f"
-SRC_URI = "git://github.com/OP-TEE/optee_os.git"
 
 S = "${WORKDIR}/git"
 
