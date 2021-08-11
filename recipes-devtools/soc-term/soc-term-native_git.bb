@@ -13,7 +13,7 @@ SRCREV = "5493a6e7c264536f5ca63fe7511e5eed991e4f20"
 SRC_URI = "git://github.com/linaro-swg/soc_term.git"
 PV = "0.0+git${SRCPV}"
 
-S = "${WORKDIR}/git/"
+S = "${WORKDIR}/git"
 
 do_configure () {
     :
