@@ -4,7 +4,7 @@ DESCRIPTION = "OPTEE OS"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
 
-PV="3.8.0+git${SRCPV}"
+PV="3.14.0+git${SRCPV}"
 
 inherit deploy python3native
 
@@ -35,7 +35,7 @@ python () {
          bb.fatal("optee-os doesn't recognize this MACHINE")
 }
 
-SRCREV = "ee4d15901475dda07111ea1cc545d8b23ca6da1b"
+SRCREV = "d21befa5e53eae9db469eba1685f5aa5c6f92c2f"
 SRC_URI = "git://github.com/OP-TEE/optee_os.git"
 
 S = "${WORKDIR}/git"
