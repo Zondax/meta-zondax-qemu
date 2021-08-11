@@ -13,6 +13,6 @@ SRC_URI = "git://github.com/u-boot/u-boot.git;protocol=http;branch=master \
            file://0002-qemu_arm-enable-semihosting.patch \
            "
 
-SRCREV = "36fec02b1f90b92cf51ec531564f9284eae27ab4"
+SRCREV = "840658b093976390e9537724f802281c9c8439f5"
 
 S = "${WORKDIR}/git"
