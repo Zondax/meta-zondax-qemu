@@ -36,7 +36,7 @@ python () {
 }
 
 SRC_URI = "git://github.com/OP-TEE/optee_os.git \
-           file://0001-allow-setting-sysroot-for-libgcc-lookup.patch \
+           file://0006-allow-setting-sysroot-for-libgcc-lookup.patch \
 "
 
 SRCREV = "d21befa5e53eae9db469eba1685f5aa5c6f92c2f"
