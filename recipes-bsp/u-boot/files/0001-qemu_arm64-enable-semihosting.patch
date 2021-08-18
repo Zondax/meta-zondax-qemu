@@ -17,6 +17,6 @@ index 084b4c1ca6..db805d6a5b 100644
  CONFIG_USB_EHCI_HCD=y
  CONFIG_USB_EHCI_PCI=y
 +CONFIG_SYS_TEXT_BASE=0x60000000
-+CONFIG_BOOTCOMMAND="fdt addr ${fdt_addr} && fdt resize 1000 && smhload Image ${kernel_addr_r} && smhload rootfs.cpio.gz ${ramdisk_addr_r} ramdisk_addr_end &&  setenv bootargs console=ttyAMA0,38400 keep_bootcon root=/dev/vda2 earlyprintk=serial,ttyAMA0,115200 && fdt chosen ${ramdisk_addr_r} ${ramdisk_addr_end} && booti ${kernel_addr_r} - ${fdt_addr}"
++CONFIG_BOOTCOMMAND="fdt addr ${fdt_addr} && fdt resize 1000 && smhload Image ${kernel_addr_r} && smhload rootfs.cpio.gz ${ramdisk_addr_r} ramdisk_addr_end && setenv bootargs console=ttyAMA0,115200 keep_bootcon root=/dev/vda2 earlyprintk=serial,ttyAMA0,115200 && fdt chosen ${ramdisk_addr_r} ${ramdisk_addr_end} && booti ${kernel_addr_r} - ${fdt_addr}"
 +CONFIG_SEMIHOSTING=y
 +CONFIG_TFABOOT=y
