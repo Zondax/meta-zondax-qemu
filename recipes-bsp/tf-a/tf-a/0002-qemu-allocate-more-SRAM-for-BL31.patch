@@ -1,0 +1,13 @@
+diff --git a/plat/qemu/qemu/include/platform_def.h b/plat/qemu/qemu/include/platform_def.h
+index 1acf6a97c..2925fc7e4 100644
+--- a/plat/qemu/qemu/include/platform_def.h
++++ b/plat/qemu/qemu/include/platform_def.h
+@@ -146,7 +146,7 @@
+  * Put BL3-1 at the top of the Trusted SRAM. BL31_BASE is calculated using the
+  * current BL3-1 debug size plus a little space for growth.
+  */
+-#define BL31_BASE			(BL31_LIMIT - 0x20000)
++#define BL31_BASE			(BL31_LIMIT - 0x25000)
+ #define BL31_LIMIT			(BL_RAM_BASE + BL_RAM_SIZE)
+ #define BL31_PROGBITS_LIMIT		BL1_RW_BASE
+ 

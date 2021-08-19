@@ -4,7 +4,10 @@ LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-3-Clause;md5=550794465ba0ec5312d6919e203a55f9"
 
 SRCREV = "b76aead1b299890ea1edacf7f008bf0f9204a1b4"
-SRC_URI = "git://git.trustedfirmware.org/TF-A/trusted-firmware-a.git;branch=master"
+SRC_URI = "git://git.trustedfirmware.org/TF-A/trusted-firmware-a.git;branch=master \
+           file://0001-qemu-increase-secure-SRAM-size.patch \
+           file://0002-qemu-allocate-more-SRAM-for-BL31.patch \
+           "
 
 DEPENDS_qemu-optee32 = "u-boot-optee optee-os"
 DEPENDS_qemu-optee64 = "u-boot-optee optee-os"
