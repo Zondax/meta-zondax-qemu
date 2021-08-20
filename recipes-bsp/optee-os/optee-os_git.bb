@@ -6,6 +6,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
 
 PV="3.14.0+git${SRCPV}"
 
+PROVIDES += "virtual/optee-os"
+RPROVIDES_${PN} += "virtual/optee-os"
+
 inherit deploy python3native
 
 DEPENDS = "python3-pycrypto-native python3-pyelftools-native python3-pycryptodomex-native"
