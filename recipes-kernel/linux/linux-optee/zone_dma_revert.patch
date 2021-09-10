@@ -1,13 +1,23 @@
-Revert ZONE_DMA patches
+From 444d77a341a73a58b4c50eda187caa204c9dda07 Mon Sep 17 00:00:00 2001
+From: Jon Mason <jon.mason@arm.com>
+Date: Fri, 10 Sep 2021 16:17:16 +0300
+Subject: [PATCH] Revert ZONE_DMA patches
 
 Upstream-Status: Inappropriate
 Signed-off-by: Jon Mason <jon.mason@arm.com>
 
+---
+ arch/arm64/include/asm/processor.h |  3 +-
+ arch/arm64/mm/init.c               | 42 ++++++++++-------------
+ drivers/acpi/arm64/iort.c          | 55 ------------------------------
+ include/linux/acpi_iort.h          |  4 ---
+ 4 files changed, 20 insertions(+), 84 deletions(-)
+
 diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
-index fce8cbecd6bc..a884d7773989 100644
+index 9df3feeee890..84d17b414d88 100644
 --- a/arch/arm64/include/asm/processor.h
 +++ b/arch/arm64/include/asm/processor.h
-@@ -96,7 +96,8 @@
+@@ -94,7 +94,8 @@
  #endif /* CONFIG_ARM64_FORCE_52BIT */
  
  extern phys_addr_t arm64_dma_phys_limit;
@@ -18,7 +28,7 @@ index fce8cbecd6bc..a884d7773989 100644
  struct debug_info {
  #ifdef CONFIG_HAVE_HW_BREAKPOINT
 diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-index a985d292e820..7fbb9c85af8a 100644
+index e55409caaee3..f4bad953439b 100644
 --- a/arch/arm64/mm/init.c
 +++ b/arch/arm64/mm/init.c
 @@ -29,7 +29,6 @@
@@ -29,16 +39,16 @@ index a985d292e820..7fbb9c85af8a 100644
  
  #include <asm/boot.h>
  #include <asm/fixmap.h>
-@@ -43,6 +42,8 @@
- #include <asm/tlb.h>
+@@ -45,6 +44,8 @@
  #include <asm/alternative.h>
+ #include <asm/xen/swiotlb-xen.h>
  
 +#define ARM64_ZONE_DMA_BITS	30
 +
  /*
   * We need to be able to catch inadvertent references to memstart_addr
   * that occur (potentially in generic code) before arm64_memblock_init()
-@@ -53,13 +54,13 @@ s64 memstart_addr __ro_after_init = -1;
+@@ -55,13 +56,13 @@ s64 memstart_addr __ro_after_init = -1;
  EXPORT_SYMBOL(memstart_addr);
  
  /*
@@ -57,7 +67,7 @@ index a985d292e820..7fbb9c85af8a 100644
  
  #ifdef CONFIG_KEXEC_CORE
  /*
-@@ -84,7 +85,7 @@ static void __init reserve_crashkernel(void)
+@@ -86,7 +87,7 @@ static void __init reserve_crashkernel(void)
  
  	if (crash_base == 0) {
  		/* Current arm64 boot protocol requires 2MB alignment */
@@ -66,7 +76,7 @@ index a985d292e820..7fbb9c85af8a 100644
  				crash_size, SZ_2M);
  		if (crash_base == 0) {
  			pr_warn("cannot allocate crashkernel (size:0x%llx)\n",
-@@ -187,24 +188,15 @@ static phys_addr_t __init max_zone_phys(unsigned int zone_bits)
+@@ -196,24 +197,15 @@ static phys_addr_t __init max_zone_phys(unsigned int zone_bits)
  static void __init zone_sizes_init(unsigned long min, unsigned long max)
  {
  	unsigned long max_zone_pfns[MAX_NR_ZONES]  = {0};
@@ -93,7 +103,7 @@ index a985d292e820..7fbb9c85af8a 100644
  	max_zone_pfns[ZONE_NORMAL] = max;
  
  	free_area_init(max_zone_pfns);
-@@ -398,9 +390,16 @@ void __init arm64_memblock_init(void)
+@@ -420,9 +412,16 @@ void __init arm64_memblock_init(void)
  
  	early_init_fdt_scan_reserved_mem();
  
@@ -110,7 +120,7 @@ index a985d292e820..7fbb9c85af8a 100644
  }
  
  void __init bootmem_init(void)
-@@ -435,11 +434,6 @@ void __init bootmem_init(void)
+@@ -459,11 +458,6 @@ void __init bootmem_init(void)
  	sparse_init();
  	zone_sizes_init(min, max);
  
@@ -122,20 +132,20 @@ index a985d292e820..7fbb9c85af8a 100644
  	/*
  	 * request_standard_resources() depends on crashkernel's memory being
  	 * reserved, so do it here.
-@@ -522,7 +516,7 @@ static void __init free_unused_memmap(void)
+@@ -481,7 +475,7 @@ void __init bootmem_init(void)
  void __init mem_init(void)
  {
  	if (swiotlb_force == SWIOTLB_FORCE ||
 -	    max_pfn > PFN_DOWN(arm64_dma_phys_limit))
 +	    max_pfn > PFN_DOWN(arm64_dma_phys_limit ? : arm64_dma32_phys_limit))
  		swiotlb_init(1);
- 	else
+ 	else if (!xen_swiotlb_detect())
  		swiotlb_force = SWIOTLB_NO_FORCE;
 diff --git a/drivers/acpi/arm64/iort.c b/drivers/acpi/arm64/iort.c
-index 2494138a6905..94f34109695c 100644
+index 3912a1f6058e..047f1822e290 100644
 --- a/drivers/acpi/arm64/iort.c
 +++ b/drivers/acpi/arm64/iort.c
-@@ -1730,58 +1730,3 @@ void __init acpi_iort_init(void)
+@@ -1731,58 +1731,3 @@ void __init acpi_iort_init(void)
  
  	iort_init_platform_devices();
  }
