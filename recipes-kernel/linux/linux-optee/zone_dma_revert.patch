@@ -1,4 +1,4 @@
-From 444d77a341a73a58b4c50eda187caa204c9dda07 Mon Sep 17 00:00:00 2001
+From 0e80508dcc8d31b4332ba109ed925d8d2ae3b7d2 Mon Sep 17 00:00:00 2001
 From: Jon Mason <jon.mason@arm.com>
 Date: Fri, 10 Sep 2021 16:17:16 +0300
 Subject: [PATCH] Revert ZONE_DMA patches
@@ -14,7 +14,7 @@ Signed-off-by: Jon Mason <jon.mason@arm.com>
  4 files changed, 20 insertions(+), 84 deletions(-)
 
 diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
-index 9df3feeee890..84d17b414d88 100644
+index b6517fd03d7b..fb3e36f3b264 100644
 --- a/arch/arm64/include/asm/processor.h
 +++ b/arch/arm64/include/asm/processor.h
 @@ -94,7 +94,8 @@
@@ -28,7 +28,7 @@ index 9df3feeee890..84d17b414d88 100644
  struct debug_info {
  #ifdef CONFIG_HAVE_HW_BREAKPOINT
 diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-index e55409caaee3..f4bad953439b 100644
+index 1fdb7bb7c198..bff4492ad297 100644
 --- a/arch/arm64/mm/init.c
 +++ b/arch/arm64/mm/init.c
 @@ -29,7 +29,6 @@
@@ -103,7 +103,7 @@ index e55409caaee3..f4bad953439b 100644
  	max_zone_pfns[ZONE_NORMAL] = max;
  
  	free_area_init(max_zone_pfns);
-@@ -420,9 +412,16 @@ void __init arm64_memblock_init(void)
+@@ -432,9 +424,16 @@ void __init arm64_memblock_init(void)
  
  	early_init_fdt_scan_reserved_mem();
  
@@ -120,7 +120,7 @@ index e55409caaee3..f4bad953439b 100644
  }
  
  void __init bootmem_init(void)
-@@ -459,11 +458,6 @@ void __init bootmem_init(void)
+@@ -471,11 +470,6 @@ void __init bootmem_init(void)
  	sparse_init();
  	zone_sizes_init(min, max);
  
@@ -132,7 +132,7 @@ index e55409caaee3..f4bad953439b 100644
  	/*
  	 * request_standard_resources() depends on crashkernel's memory being
  	 * reserved, so do it here.
-@@ -481,7 +475,7 @@ void __init bootmem_init(void)
+@@ -493,7 +487,7 @@ void __init bootmem_init(void)
  void __init mem_init(void)
  {
  	if (swiotlb_force == SWIOTLB_FORCE ||
@@ -142,10 +142,10 @@ index e55409caaee3..f4bad953439b 100644
  	else if (!xen_swiotlb_detect())
  		swiotlb_force = SWIOTLB_NO_FORCE;
 diff --git a/drivers/acpi/arm64/iort.c b/drivers/acpi/arm64/iort.c
-index 3912a1f6058e..047f1822e290 100644
+index 3b23fb775ac4..c5415d162e7d 100644
 --- a/drivers/acpi/arm64/iort.c
 +++ b/drivers/acpi/arm64/iort.c
-@@ -1731,58 +1731,3 @@ void __init acpi_iort_init(void)
+@@ -1637,58 +1637,3 @@ void __init acpi_iort_init(void)
  
  	iort_init_platform_devices();
  }
@@ -205,18 +205,18 @@ index 3912a1f6058e..047f1822e290 100644
 -}
 -#endif
 diff --git a/include/linux/acpi_iort.h b/include/linux/acpi_iort.h
-index 1a12baa58e40..20a32120bb88 100644
+index f1f0842a2cb2..0ce9756781a6 100644
 --- a/include/linux/acpi_iort.h
 +++ b/include/linux/acpi_iort.h
-@@ -38,7 +38,6 @@ void iort_dma_setup(struct device *dev, u64 *dma_addr, u64 *size);
- const struct iommu_ops *iort_iommu_configure_id(struct device *dev,
- 						const u32 *id_in);
+@@ -37,7 +37,6 @@ int iort_pmsi_get_dev_id(struct device *dev, u32 *dev_id);
+ int iort_dma_get_ranges(struct device *dev, u64 *size);
+ int iort_iommu_configure_id(struct device *dev, const u32 *id_in);
  int iort_iommu_msi_get_resv_regions(struct device *dev, struct list_head *head);
 -phys_addr_t acpi_iort_dma_get_max_cpu_address(void);
  #else
  static inline void acpi_iort_init(void) { }
  static inline u32 iort_msi_map_id(struct device *dev, u32 id)
-@@ -56,9 +55,6 @@ static inline const struct iommu_ops *iort_iommu_configure_id(
+@@ -54,9 +53,6 @@ static inline int iort_iommu_configure_id(struct device *dev, const u32 *id_in)
  static inline
  int iort_iommu_msi_get_resv_regions(struct device *dev, struct list_head *head)
  { return 0; }

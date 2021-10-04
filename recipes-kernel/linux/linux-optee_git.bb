@@ -1,7 +1,7 @@
 require linux-optee.inc
 
-SRCREV = "e2c060fedf7e2b27370b9d481840b12916e9f38a"
-PV = "5.13.0+git${SRCPV}"
+SRCREV = "f8e3503c8f3646c9d0aaf1aae4efa7fd3b6f2908"
+PV = "5.14.0+git${SRCPV}"
 
 SRC_URI = "git://github.com/linaro-swg/linux.git;branch=optee \
            file://zone_dma_revert.patch \
