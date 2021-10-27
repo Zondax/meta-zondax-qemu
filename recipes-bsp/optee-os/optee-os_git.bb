@@ -1,5 +1,5 @@
-SUMMARY = "OP-TEE Trusted OS"
-DESCRIPTION = "OPTEE OS"
+SUMMARY = "OP-TEE trusted OS"
+DESCRIPTION = "OP-TEE OS"
 
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
@@ -40,7 +40,7 @@ python () {
 
 SRC_URI = "git://github.com/OP-TEE/optee_os.git \
            file://0006-allow-setting-sysroot-for-libgcc-lookup.patch \
-"
+           "
 
 SRCREV = "d21befa5e53eae9db469eba1685f5aa5c6f92c2f"
 
