@@ -204,7 +204,7 @@ do_install () {
 
 }
 
-FILES_${PN} = "/boot ${sysconfdir} /lib/firmware"
+FILES:${PN} = "/boot ${sysconfdir} /lib/firmware"
 
 do_deploy () {
     if [ -n "${UBOOT_CONFIG}" ]

@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=c1f21c4f72f372ef38a5a4aee55ec173"
 PV="3.14.0+git${SRCPV}"
 
 PROVIDES += "virtual/optee-os"
-RPROVIDES_${PN} += "virtual/optee-os"
+RPROVIDES:${PN} += "virtual/optee-os"
 
 inherit deploy python3native
 
@@ -76,9 +76,9 @@ do_deploy() {
 
 addtask deploy before do_build after do_install
 
-FILES_${PN} = "${nonarch_base_libdir}/firmware/"
-FILES_${PN}-dev = "/usr/include/optee"
+FILES:${PN} = "${nonarch_base_libdir}/firmware/"
+FILES:${PN}-dev = "/usr/include/optee"
 
-INSANE_SKIP_${PN}-dev = "staticdev"
+INSANE_SKIP:${PN}-dev = "staticdev"
 
 INHIBIT_PACKAGE_STRIP = "1"

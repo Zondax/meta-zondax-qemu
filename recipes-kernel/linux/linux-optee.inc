@@ -22,7 +22,7 @@ KERNEL_IMAGETYPE ?= "Image"
 
 # Workaround to include modules.builtin.modinfo
 
-FILES_${KERNEL_PACKAGE_NAME}-base += " ${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
+FILES:${KERNEL_PACKAGE_NAME}-base += " ${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
 KERNEL_CONFIG_COMMAND () {
     cd ${S}
