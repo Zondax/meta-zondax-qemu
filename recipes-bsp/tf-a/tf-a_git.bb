@@ -9,12 +9,12 @@ SRC_URI = "git://git.trustedfirmware.org/TF-A/trusted-firmware-a.git;branch=mast
            file://0002-qemu-allocate-more-SRAM-for-BL31.patch \
            "
 
-DEPENDS_qemu-optee32 = "u-boot-optee optee-os"
-DEPENDS_qemu-optee64 = "u-boot-optee optee-os"
+DEPENDS:qemu-optee32 = "u-boot-optee optee-os"
+DEPENDS:qemu-optee64 = "u-boot-optee optee-os"
 
 COMPATIBLE_MACHINE = "qemu-optee(32|64)"
 
-ARMTF_ARGS_qemu-optee32 = " \
+ARMTF_ARGS:qemu-optee32 = " \
         BL32=${STAGING_DIR_HOST}/lib/firmware/tee-header_v2.bin \
         BL32_EXTRA1=${STAGING_DIR_HOST}/lib/firmware/tee-pager_v2.bin \
         BL32_EXTRA2=${STAGING_DIR_HOST}/lib/firmware/tee-pageable_v2.bin \
@@ -29,7 +29,7 @@ ARMTF_ARGS_qemu-optee32 = " \
         LOG_LEVEL=50 \
 "
 
-ARMTF_ARGS_qemu-optee64 = " \
+ARMTF_ARGS:qemu-optee64 = " \
         BL32=${STAGING_DIR_HOST}/lib/firmware/tee-header_v2.bin \
         BL32_EXTRA1=${STAGING_DIR_HOST}/lib/firmware/tee-pager_v2.bin \
         BL32_EXTRA2=${STAGING_DIR_HOST}/lib/firmware/tee-pageable_v2.bin \
