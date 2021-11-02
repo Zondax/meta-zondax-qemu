@@ -38,7 +38,7 @@ python () {
          bb.fatal("optee-os doesn't recognize this MACHINE")
 }
 
-SRC_URI = "git://github.com/OP-TEE/optee_os.git \
+SRC_URI = "git://github.com/OP-TEE/optee_os.git;protocol=https \
            file://0006-allow-setting-sysroot-for-libgcc-lookup.patch \
            "
 
