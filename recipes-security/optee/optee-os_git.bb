@@ -49,7 +49,11 @@ S = "${WORKDIR}/git"
 do_compile() {
     unset LDFLAGS
     export CFLAGS="${CFLAGS} --sysroot=${STAGING_DIR_HOST}"
-    oe_runmake all CFG_TEE_TA_LOG_LEVEL=4 CFG_TEE_CORE_LOG_LEVEL=4 DEBUG=1
+    if ${@bb.utils.contains('ENABLE_TA_SIGNING', '1', 'true', 'false', d)}; then                                         
+        oe_runmake all CFG_TEE_TA_LOG_LEVEL=4 CFG_TEE_CORE_LOG_LEVEL=4 DEBUG=1 TA_PUBLIC_KEY=${TA_CUSTOM_PUBKEY}
+    else
+        oe_runmake all CFG_TEE_TA_LOG_LEVEL=4 CFG_TEE_CORE_LOG_LEVEL=4 DEBUG=1
+    fi 
 }
 
 do_install() {
