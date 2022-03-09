@@ -13,6 +13,9 @@ inherit deploy python3native
 
 DEPENDS = "python3-pycrypto-native python3-pyelftools-native python3-pycryptodomex-native"
 
+ENABLE_TA_SIGNING ?= "0"
+TA_CUSTOM_PUBKEY ?= ""
+
 python () {
      machine = d.getVar("MACHINE", True)
      if machine == "qemu-optee32":
